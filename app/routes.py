@@ -1,5 +1,6 @@
 from flask import render_template, flash, redirect, url_for
 from app import app, socketio
+from app.forms import BibleSearchForm
 
 @app.route("/")
 @app.route("/index")
@@ -7,9 +8,12 @@ def index():
     return render_template("base.html")
 
 
-@app.route("/bible_search")
+@app.route("/bible_search", methods=["GET", "POST"])
 def bible_search():
-    return render_template("bible_search_form.html")
+    form = BibleSearchForm()
+    if form.validate_on_submit():
+        return render_template("bible_search_form.html", form=form) # redirect(url_for("index"))
+    return render_template("bible_search_form.html", form=form)
 
 @app.route("/display")
 def display():

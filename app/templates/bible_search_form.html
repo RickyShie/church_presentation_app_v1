@@ -1,2 +1,48 @@
 {% extends "base.html" %}
 {% block title %}Bible Search Form{% endblock %}
+{% block content %}
+<h2>Search Bible Verses</h2>
+<form action="" method="post" novalidate>
+    {{ form.hidden_tag() }}
+    <h3>{{ form.book_name.label }}</h3>
+    <p>
+        {{ form.book_name }}
+        {% for error in form.book_name.errors %}
+         <span style="color: red;">[{{ error }}]</span>
+        {% endfor %}
+    </p>
+    <h3>{{ form.chapter.label }}</h3>
+    <p>
+        {{ form.chapter }}
+        {% for error in form.chapter.errors %}
+         <span style="color: red;">[{{ error }}]</span>
+        {% endfor %}
+    </p>
+    <h3>{{ form.start_verse.label }}</h3>
+    <p>
+        {{ form.start_verse }}
+        {% for error in form.start_verse.errors %}
+         <span style="color: red;">[{{ error }}]</span>
+        {% endfor %}
+    </p>
+    <h3>{{ form.end_verse.label }}</h3>
+    <p>
+        {{ form.end_verse }}
+        {% for error in form.end_verse.errors %}
+         <span style="color: red;">[{{ error }}]</span>
+        {% endfor %}
+    </p>
+    <p>
+        {% for subfield in form.translations %}
+        <div>
+            {{ subfield }}{{ subfield.label }}
+        </div>
+        {% endfor %}
+        {% for error in form.translations.errors %}
+         <span style="color: red;">[{{ error }}]</span>
+        {% endfor %}
+    </p>
+    {{ form.submit }}
+</form>
+
+{% endblock %}
