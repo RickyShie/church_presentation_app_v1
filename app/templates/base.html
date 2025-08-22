@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{% block title %}{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <h1>Church Display Control Panel</h1>
+
+  <div class="nav-tabs">
+    <a href="#" class="tab {% if active_tab == 'bible' %}active{% endif %}">📖 Bible Search</a>
+    <a href="#" class="tab {% if active_tab == 'hymn' %}active{% endif %}">🎵 Hymn Search</a>
+    <a href="#" class="tab {% if active_tab == 'announcements' %}active{% endif %}">📢 Announcements & Sermon Meta</a>
+  </div>
+
+  {% block content %}{% endblock %}
+</body>
+</html>
