@@ -5,3 +5,8 @@ from app import app
 @app.route("/index")
 def index():
     return render_template("base.html")
+
+
+@app.route("/bible_search")
+def bible_search():
+    return render_template("bible_search_form.html")
