@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Display</title>
+  <link rel="icon" href="{{ url_for('static', filename='img/favicon.ico') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/display_panel.css') }}">
+  <style>
+  </style>
+      <!-- Socket.IO client (served by Flask-SocketIO at /socket.io/socket.io.js) -->
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"
+          integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA==" crossorigin="anonymous"></script>
+  <script defer src="{{ url_for('static', filename='js/display-panel-client.js')}}"></script>
+</head>
+<body>
+  <header class="appbar">
+    <div class="container" style="display:flex; align-items:center; justify-content:space-between; gap:16px;">
+      <div class="brand">Display</div>
+      <div class="pill" id="current-pill">Current: bible-search</div>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <!-- ===================== 1) Bible Search Layout ===================== -->
+    <section id="bible-search" class="layout active" aria-labelledby="bibleHeading">
+      <div class="card">
+        <div class="row cols-2">
+          <div>
+            <h2 id="bibleHeading" class="title">Japanese Sermon Topic</h2>
+            <p class="subtitle">Chinese Sermon Topic</p>
+          </div>
+          <div>
+            <div class="row cols-2" style="align-items: start;">
+              <div class="card muted">
+                <div class="section-heading">Speaker Name:</div>
+                <div class="placeholder short"></div>
+              </div>
+              <div class="card muted">
+                <div class="section-heading">Interpreter Name:</div>
+                <div class="placeholder short"></div>
+              </div>
+            </div>
+            <div class="card muted" style="margin-top:16px;">
+              <div class="section-heading">Pianist Name:</div>
+              <div class="placeholder short"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row cols-3" style="margin-top:20px;">
+        <div class="card">
+          <div class="section-heading">KOUGO Bible Verses</div>
+          <div class="placeholder tall"></div>
+        </div>
+        <div class="card">
+          <div class="section-heading">CUNP Bible Verses</div>
+          <div class="placeholder tall"></div>
+        </div>
+        <div class="card">
+          <div class="section-heading">NIV Bible Verses</div>
+          <div class="placeholder tall"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== 2) Hymn Search Layout ===================== -->
+    <section id="hymn-search" class="layout" aria-labelledby="hymnHeading">
+      <div class="card">
+        <h2 id="hymnHeading" class="title">Japanese Hymn Name</h2>
+        <p class="subtitle">Chinese Hymn Name</p>
+      </div>
+
+      <div class="card" style="margin-top:20px;">
+        <div class="section-heading">Japanese Lyrics</div>
+        <div class="placeholder mid"></div>
+      </div>
+
+      <div class="card" style="margin-top:20px;">
+        <div class="section-heading">Japanese Chorus</div>
+        <div class="placeholder short"></div>
+      </div>
+    </section>
+
+    <!-- ===================== 3) Announcements Layout ===================== -->
+    <section id="display-announcement" class="layout" aria-labelledby="announceHeading">
+      <h2 id="announceHeading" class="title">Announcements</h2>
+
+      <div class="row">
+        <div class="card"><div class="placeholder short"></div></div>
+        <div class="card"><div class="placeholder short"></div></div>
+        <div class="card"><div class="placeholder short"></div></div>
+        <div class="card"><div class="placeholder short"></div></div>
+        <div class="card"><div class="placeholder short"></div></div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

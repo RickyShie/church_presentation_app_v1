@@ -4,14 +4,19 @@
   <meta charset="UTF-8">
   <title>{% block title %}{% endblock %}</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <link rel="icon" href="{{ url_for('static', filename='img/favicon.ico') }}">
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"
+          integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA==" crossorigin="anonymous"></script>
+  <script defer src="{{ url_for('static', filename='js/control-panel-client.js') }}"></script>
+
 </head>
 <body>
   <h1>Church Display Control Panel</h1>
 
   <div class="nav-tabs">
-    <a href="#" class="tab {% if active_tab == 'bible' %}active{% endif %}">📖 Bible Search</a>
-    <a href="#" class="tab {% if active_tab == 'hymn' %}active{% endif %}">🎵 Hymn Search</a>
-    <a href="#" class="tab {% if active_tab == 'announcements' %}active{% endif %}">📢 Announcements & Sermon Meta</a>
+    <a id="bible-search" href="#" class="tab {% if active_tab == 'bible' %}active{% endif %} control_button">📖 Bible Search</a>
+    <a id="hymn-search" href="#" class="tab {% if active_tab == 'hymn' %}active{% endif %} control_button">🎵 Hymn Search</a>
+    <a id="display-announcement" href="#" class="tab {% if active_tab == 'announcements' %}active{% endif %} control_button">📢 Announcements & Sermon Meta</a>
   </div>
 
   {% block content %}{% endblock %}
