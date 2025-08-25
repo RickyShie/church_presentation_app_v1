@@ -14,9 +14,9 @@
   <h1>Church Display Control Panel</h1>
 
   <div class="nav-tabs">
-    <a id="bible-search" href="{{ url_for('bible_search') }}" class="tab {% if active_tab == 'bible' %}active{% endif %} control_button">📖 Bible Search</a>
-    <a id="hymn-search" href="#" class="tab {% if active_tab == 'hymn' %}active{% endif %} control_button">🎵 Hymn Search</a>
-    <a id="display-announcement" href="#" class="tab {% if active_tab == 'announcements' %}active{% endif %} control_button">📢 Announcements & Sermon Meta</a>
+    <a id="bible-search" href="{{ url_for('bible_search') }}" class="tab {% if active_tab == 'bible' %}active{% endif %} control_button">📖 Bible Search & Sermon Meta</a>
+<!--    <a id="hymn-search" href="#" class="tab {% if active_tab == 'hymn' %}active{% endif %} control_button">🎵 Hymn Search</a>-->
+    <a id="display-announcement" href="#" class="tab {% if active_tab == 'announcements' %}active{% endif %} control_button">📢 Announcements</a>
   </div>
 
   {% block content %}{% endblock %}
