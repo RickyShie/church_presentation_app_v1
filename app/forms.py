@@ -120,3 +120,14 @@ class BibleSearchForm(FlaskForm):
                 return False
         return True
     submit = SubmitField("Search")
+
+class SermonMetadataForm(FlaskForm):
+    service_type = StringField("Service Type")
+    jp_sermon_topic = StringField("Japanese Sermon Title")
+    cn_sermon_topic = StringField("Chinese Sermon Title")
+    speaker_name = StringField("Speaker Name")
+    interpreter_name = StringField("Interpreter Name")
+    start_hymn = StringField("Start Hymn")
+    end_hymn = StringField("End Hymn")
+    pianist_name = StringField("Pianist Name")
+    submit = SubmitField("Save Metadata")
