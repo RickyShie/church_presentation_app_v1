@@ -7,8 +7,20 @@
   <link rel="icon" href="{{ url_for('static', filename='img/favicon.ico') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/display_panel.css') }}">
   <style>
+    /* small touch for the button */
+    .fs-btn {
+      appearance: none;
+      border: 1px solid #d0d7de;
+      background: #fff;
+      padding: 6px 10px;
+      border-radius: 6px;
+      font-size: 14px;
+      cursor: pointer;
+    }
+    .fs-btn:hover { background: #f6f8fa; }
   </style>
-      <!-- Socket.IO client (served by Flask-SocketIO at /socket.io/socket.io.js) -->
+
+  <!-- Socket.IO client (served by Flask-SocketIO at /socket.io/socket.io.js) -->
   <script defer src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"
           integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA==" crossorigin="anonymous"></script>
   <script defer src="{{ url_for('static', filename='js/display-panel-client.js')}}"></script>
@@ -17,7 +29,14 @@
   <header class="appbar">
     <div class="container" style="display:flex; align-items:center; justify-content:space-between; gap:16px;">
       <div class="brand">Display</div>
-      <div class="pill" id="current-pill">Current: bible-search</div>
+
+      <div style="display:flex; align-items:center; gap:12px;">
+        <div class="pill" id="current-pill">Current: bible-search</div>
+        <!-- Fullscreen button -->
+        <button id="fullscreen-btn" class="fs-btn" type="button" aria-pressed="false" title="Toggle fullscreen (F)">
+          Enter Fullscreen
+        </button>
+      </div>
     </div>
   </header>
 
@@ -97,5 +116,58 @@
       </div>
     </section>
   </main>
+
+  <!-- Fullscreen toggle logic -->
+  <script>
+    (function () {
+      const btn = document.getElementById('fullscreen-btn');
+
+      function inFullscreen() {
+        return document.fullscreenElement || document.webkitFullscreenElement || document.msFullscreenElement;
+      }
+
+      function updateButton() {
+        const on = !!inFullscreen();
+        btn.textContent = on ? 'Exit Fullscreen' : 'Enter Fullscreen';
+        btn.setAttribute('aria-pressed', String(on));
+      }
+
+      async function enterFullscreen() {
+        const el = document.documentElement; // whole page
+        if (el.requestFullscreen) await el.requestFullscreen();
+        else if (el.webkitRequestFullscreen) await el.webkitRequestFullscreen(); // Safari
+        else if (el.msRequestFullscreen) await el.msRequestFullscreen();
+      }
+
+      async function exitFullscreen() {
+        if (document.exitFullscreen) await document.exitFullscreen();
+        else if (document.webkitExitFullscreen) await document.webkitExitFullscreen(); // Safari
+        else if (document.msExitFullscreen) await document.msExitFullscreen();
+      }
+
+      btn.addEventListener('click', async () => {
+        try {
+          if (inFullscreen()) await exitFullscreen();
+          else await enterFullscreen();
+        } catch (e) {
+          console.error('Fullscreen error:', e);
+        } finally {
+          updateButton();
+        }
+      });
+
+      // Keep label in sync when user presses ESC or OS exits fullscreen
+      document.addEventListener('fullscreenchange', updateButton);
+      document.addEventListener('webkitfullscreenchange', updateButton);
+      document.addEventListener('msfullscreenchange', updateButton);
+
+      // Keyboard shortcut: 'f' toggles fullscreen
+      document.addEventListener('keydown', (e) => {
+        if (e.key.toLowerCase() === 'f' && !e.repeat) btn.click();
+      });
+
+      updateButton();
+    })();
+  </script>
 </body>
 </html>

@@ -122,3 +122,151 @@
   padding-right: 8px;  /* adds some spacing so scrollbar doesn’t overlap text */
 }
 
+/* 1) Let the whole page breathe on big screens */
+.container {
+  /* replace your current max-width with this */
+  max-width: clamp(1200px, 92vw, 1800px);
+}
+
+/* 2) Widen the 3-column results row in the Bible Search layout */
+#bible-search .row.cols-3 {
+  /* wider columns with a sensible minimum so they don't get cramped */
+  grid-template-columns: repeat(3, minmax(420px, 1fr));
+  grid-gap: 28px; /* a bit more space between cards */
+}
+
+/* 3) Large-display polish */
+@media (min-width: 1600px) {
+  .title { font-size: 1.35rem; }
+  .subtitle { font-size: 1rem; }
+  .section-heading { font-size: 1.05rem; }
+
+  .verse { font-size: 1.05rem; line-height: 1.85; }
+
+  /* allow a taller scroll area on big screens */
+  #kougo-search-results,
+  #cunp-search-results,
+  #niv-search-results {
+    max-height: 720px;
+  }
+}
+
+@media (min-width: 2000px) {
+  /* optionally widen even further on ultra-wide displays */
+  .container { max-width: 2000px; }
+
+  #bible-search .row.cols-3 {
+    grid-template-columns: repeat(3, minmax(500px, 1fr));
+    grid-gap: 36px;
+  }
+
+  .verse { font-size: 1.15rem; line-height: 1.95; }
+}
+
+
+/* 1) Let the whole page breathe on big screens */
+.container {
+  max-width: clamp(1200px, 92vw, 1800px);
+}
+
+/* 2) Widen the 3-column results row in the Bible Search layout */
+#bible-search .row.cols-3 {
+  grid-template-columns: repeat(3, minmax(420px, 1fr));
+  grid-gap: 28px;
+}
+
+/* 3) Large-display polish */
+@media (min-width: 1600px) {
+  .title { font-size: 1.35rem; }
+  .subtitle { font-size: 1rem; }
+  .section-heading { font-size: 1.05rem; }
+
+  .verse { font-size: 1.05rem; line-height: 1.85; }
+
+  #kougo-search-results,
+  #cunp-search-results,
+  #niv-search-results {
+    max-height: 720px;
+  }
+}
+
+@media (min-width: 2000px) {
+  .container { max-width: 2000px; }
+
+  #bible-search .row.cols-3 {
+    grid-template-columns: repeat(3, minmax(500px, 1fr));
+    grid-gap: 36px;
+  }
+
+  .verse { font-size: 1.15rem; line-height: 1.95; }
+}
+
+
+/* ========= Responsive Bible results grid ========= */
+
+/* Default / desktop (already wide) */
+#bible-search .row.cols-3 {
+  grid-template-columns: repeat(3, minmax(420px, 1fr));
+  grid-gap: 28px;
+}
+
+/* Large desktop / TVs */
+@media (min-width: 1600px) {
+  #bible-search .row.cols-3 {
+    grid-template-columns: repeat(3, minmax(500px, 1fr));
+    grid-gap: 36px;
+  }
+
+  /* bigger verse text for distance viewing */
+  #kougo-search-results,
+  #cunp-search-results,
+  #niv-search-results {
+    max-height: 720px;
+  }
+  .verse { font-size: 1.05rem; line-height: 1.85; }
+}
+
+/* Laptop / large tablet — 2 columns */
+@media (max-width: 1199px) {
+  #bible-search .row.cols-3 {
+    grid-template-columns: repeat(2, minmax(320px, 1fr));
+    grid-gap: 22px;
+  }
+
+  /* keep scroll areas usable on shorter screens */
+  #kougo-search-results,
+  #cunp-search-results,
+  #niv-search-results {
+    max-height: 520px;
+  }
+}
+
+/* Tablet / big phones — 1 column */
+@media (max-width: 780px) {
+  #bible-search .row.cols-3 {
+    grid-template-columns: 1fr;
+    grid-gap: 18px;
+  }
+
+  /* tighten spacing and font a touch for small screens */
+  .verse       { font-size: 0.98rem; line-height: 1.65; }
+  .verse-number{ font-size: 0.68em; }
+
+  #kougo-search-results,
+  #cunp-search-results,
+  #niv-search-results {
+    max-height: 420px;        /* shorter viewport */
+    padding-right: 6px;
+  }
+}
+
+/* Very small phones */
+@media (max-width: 480px) {
+  .container { padding: 16px; }
+  .card      { padding: 16px; }
+  .title     { font-size: 1.1rem; }
+  .subtitle  { font-size: 0.95rem; }
+
+  .verse       { font-size: 0.95rem; line-height: 1.6; }
+  .verse-number{ font-size: 0.65em; }
+}
