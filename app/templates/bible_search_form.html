@@ -34,16 +34,17 @@
          <span style="color: red;">[{{ error }}]</span>
         {% endfor %}
     </p>
-    <p>
-        {% for subfield in form.translations %}
-        <div>
-            <span>{{ subfield }}</span><span>{{ subfield.label }}</span>
-        </div>
-        {% endfor %}
-        {% for error in form.translations.errors %}
-         <span style="color: red;">[{{ error }}]</span>
-        {% endfor %}
-    </p>
+      <p id="translation-check-boxes">
+          {% for subfield in form.translations %}
+      <div class="form-check">
+          {{ subfield(class="form-check-input") }}
+          {{ subfield.label(class="form-check-label") }}
+      </div>
+      {% endfor %}
+      {% for error in form.translations.errors %}
+      <span class="text-danger">{{ error }}</span>
+      {% endfor %}
+      </p>
     {{ form.submit(class="btn btn-primary") }}
 </form>
   <form action="" method="post" novalidate>

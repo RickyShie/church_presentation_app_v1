@@ -98,3 +98,24 @@ body {
      align-items: center;
      justify-content: center;
     }
+
+    .form-check {
+      display: flex;
+      align-items: center;   /* Vertically center checkbox and label */
+      gap: 1.5rem;           /* Optional spacing between checkbox and label */
+      margin-bottom: 2.5rem; /* Space between rows */
+    }
+
+    .form-check-input {
+      transform: scale(2.5);
+      margin: 0;             /* Remove default browser margin */
+    }
+
+    .form-check-label {
+      margin: 0;             /* Remove default spacing */
+      line-height: 1.2;      /* Keep label height tight */
+    }
+
+    #translation-check-boxes{
+      margin: 5.5rem;
+    }
