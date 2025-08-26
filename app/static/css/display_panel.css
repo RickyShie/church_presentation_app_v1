@@ -113,3 +113,12 @@
   margin-right: 4px;      /* small gap between number and text */
   color: gray;            /* optional, to look like a subtle marker */
 }
+
+#kougo-search-results,
+#cunp-search-results,
+#niv-search-results {
+  max-height: 600px;   /* you can adjust height based on your design */
+  overflow-y: auto;    /* enables vertical scrollbar if content exceeds height */
+  padding-right: 8px;  /* adds some spacing so scrollbar doesn’t overlap text */
+}
+
