@@ -270,3 +270,13 @@
   .verse       { font-size: 0.95rem; line-height: 1.6; }
   .verse-number{ font-size: 0.65em; }
 }
+
+/* Smaller Service Type card */
+.small-service-type {
+  max-width: 160px;   /* keeps it compact */
+  padding: 12px;      /* reduce padding */
+}
+
+.placeholder.tiny {
+  min-height: 40px;   /* much smaller than .short */
+}
