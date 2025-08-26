@@ -21,3 +21,14 @@ class Bible(db.Model):
 
     def __repr__(self):
         return f"<{self.book_code} - {self.book}>"
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "book": self.book,
+            "chapter": self.chapter,
+            "verse": self.verse,
+            "text": self.text,
+            "translation": self.translation,
+            "book_code": self.book_code
+        }

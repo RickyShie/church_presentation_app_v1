@@ -100,3 +100,16 @@
       text-align: center;
       margin-top: 10px;
     }
+
+.verse {
+  margin: 5px 0;
+  line-height: 1.6;
+  position: relative;
+}
+
+.verse-number {
+  font-size: 0.7em;
+  vertical-align: super;  /* makes it a superscript */
+  margin-right: 4px;      /* small gap between number and text */
+  color: gray;            /* optional, to look like a subtle marker */
+}

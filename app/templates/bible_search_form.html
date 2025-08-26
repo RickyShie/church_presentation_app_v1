@@ -35,7 +35,7 @@
     <p>
         {% for subfield in form.translations %}
         <div>
-            {{ subfield }}{{ subfield.label }}
+            <span>{{ subfield }}</span><span>{{ subfield.label }}</span>
         </div>
         {% endfor %}
         {% for error in form.translations.errors %}
