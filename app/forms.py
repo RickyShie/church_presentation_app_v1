@@ -119,7 +119,7 @@ class BibleSearchForm(FlaskForm):
                 self.end_verse.errors.append("End verse must be greater than or equal to start verse.")
                 return False
         return True
-    submit = SubmitField("Search")
+    submit = SubmitField("搜尋")
 
 class SermonMetadataForm(FlaskForm):
     service_type = StringField("聚會類別")
