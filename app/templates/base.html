@@ -12,12 +12,12 @@
 
 </head>
 <body>
-  <h1>Church Display Control Panel</h1>
+  <h1>控制面板</h1>
 
   <div class="nav-tabs">
-    <a id="bible-search" href="{{ url_for('bible_search') }}" class="tab {% if active_tab == 'bible' %}active{% endif %} control_button">📖 Bible Search & Sermon Metadata</a>
+    <a id="bible-search" href="{{ url_for('bible_search') }}" class="tab {% if active_tab == 'bible' %}active{% endif %} control_button">📖 經節查詢 & 設定講道題目 & 顯示聖工人員</a>
 <!--    <a id="hymn-search" href="#" class="tab {% if active_tab == 'hymn' %}active{% endif %} control_button">🎵 Hymn Search</a>-->
-    <a id="display-announcement" href="#" class="tab {% if active_tab == 'announcements' %}active{% endif %} control_button">📢 Announcements</a>
+    <a id="display-announcement" href="#" class="tab {% if active_tab == 'announcements' %}active{% endif %} control_button">📢 宣布事項</a>
   </div>
 
   {% block content %}{% endblock %}
