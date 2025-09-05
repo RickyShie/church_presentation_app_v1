@@ -9,7 +9,12 @@ app.config.from_object(Config)
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
-socketio = SocketIO(app)
+# IMPORTANT: tell SocketIO to use eventlet, and allow your domain
+socketio = SocketIO(
+    app,
+    async_mode="eventlet",
+    cors_allowed_origins="*"   # or ["https://YOUR-APP.fly.dev"]
+)
 from app import routes, models
 from app.models import Bible
 
