@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, IntegerField, SelectMultipleField, SelectField, SubmitField
+from wtforms import StringField, IntegerField, SelectMultipleField, SelectField, SubmitField, TextAreaField, URLField
 from wtforms.validators import DataRequired, NumberRange
 from wtforms.widgets import ListWidget, CheckboxInput
 from wtforms.validators import ValidationError
@@ -77,6 +77,29 @@ def AtLeastOneSelected(form, field):
     if not field.data or len(field.data) == 0:
         raise ValidationError("You must select at least one option.")
 
+def google_slides_embed_only(form, field):
+    value = (field.data or "").strip()
+    # Allow users to paste the whole <iframe> snippet; extract src if present
+    import re
+    m = re.search(r'src\s*=\s*"([^"]+)"', value, re.I)
+    if m:
+        value = m.group(1)
+
+    try:
+        u = urlparse(value)
+    except Exception:
+        raise ValidationError("無法解析連結，請貼上『發布到網頁→嵌入』的連結。")
+
+    host_ok = u.hostname and u.hostname.endswith("google.com")
+    path_ok = ("/presentation/" in u.path and
+               ("/embed" in u.path or "/pub" in u.path or "/pubembed" in u.path))
+
+    if not (host_ok and path_ok):
+        raise ValidationError("請使用 Google 簡報『發布到網頁→嵌入』的連結（含 /embed、/pub 或 /pubembed）。")
+
+    # If you want to normalize the value server-side:
+    field.data = value
+
 class BibleSearchForm(FlaskForm):
     book_name = SelectField("經卷", choices=bible_book_choices, validators=[DataRequired()])
     chapter = IntegerField(
@@ -131,3 +154,16 @@ class SermonMetadataForm(FlaskForm):
     closing_hymn = StringField("聚會結束讚美詩")
     pianist_name = StringField("司琴人員姓名")
     submit = SubmitField("更新")
+
+class AnnouncementForm(FlaskForm):
+    google_slide_url = TextAreaField(
+        "Google Slide的連結",
+        validators=[DataRequired()],
+        render_kw={
+            "rows": 3,                    # height (in text rows)
+            "cols": 120,                  # width fallback (CSS will override)
+            "class": "url-textarea",      # hook for CSS
+            "placeholder": "貼上『發佈到網路 → 嵌入』取得的連結或 <iframe> 片段…"
+        }
+    )
+    submit = SubmitField("更新", render_kw={"class": "btn btn-primary"})

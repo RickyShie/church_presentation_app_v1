@@ -13,6 +13,24 @@ socket.on("layout_changed", (data) => {
     showLayout(data.layout);
 });
 
+function getEmbeddableSlidesUrl(input) {
+  try {
+    const u = new URL(input);
+
+    const isGoogle = u.hostname.endsWith('google.com');
+    const isSlides = u.pathname.includes('/presentation/');
+    const isEmbed = u.pathname.includes('/embed') || u.pathname.includes('/pub');
+
+    if (isGoogle && isSlides && isEmbed) return u.href;
+    return null;
+  } catch {
+    // maybe the user pasted a full <iframe>; try to extract src=""
+    const m = input.match(/src\s*=\s*"([^"]+)"/i);
+    if (!m) return null;
+    return getEmbeddableSlidesUrl(m[1]); // recurse check
+  }
+}
+
 socket.on("bible_search_results", (data) => {
   const results = data.bible_search_results || [];
 
@@ -64,4 +82,28 @@ socket.on("sermon_metadata", (data) => {
     hymns.innerHTML = `讚美詩${opening_hymn}<br/>讚美詩${closing_hymn}`;
     pianist_name = document.getElementById("pianist-name");
     pianist_name.textContent = `ピアノ：${sermon_metadata.pianist_name}`;
+});
+
+socket.on("google_slides_url_result", (data) => {
+  const container = document.getElementById("google-slides");
+  const raw = (data?.google_slides_url_result || "").trim();
+
+  const url = getEmbeddableSlidesUrl(raw);
+  if (!url) {
+    console.warn("Not an embeddable Slides URL. Use Publish → Embed.");
+    return;
+  }
+
+  const iframe = document.createElement("iframe");
+  iframe.id = "google-slides";
+  iframe.src = url;
+  iframe.width = "100%";
+  iframe.height = "600";
+  iframe.setAttribute("frameborder", "0");
+  iframe.setAttribute("allowfullscreen", "true");
+  iframe.setAttribute("loading", "lazy");
+  // Needed for Google to run its player:
+  iframe.setAttribute("sandbox", "allow-scripts allow-same-origin allow-presentation");
+
+  container.parentNode.replaceChild(iframe, container);
 });

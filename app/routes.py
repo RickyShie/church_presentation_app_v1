@@ -1,6 +1,6 @@
 from flask import render_template, flash, request
 from app import app, socketio
-from app.forms import BibleSearchForm, SermonMetadataForm
+from app.forms import BibleSearchForm, SermonMetadataForm, AnnouncementForm
 from app.models import Bible
 
 @app.route("/")
@@ -63,6 +63,18 @@ def bible_search():
 
     # GET (or failed POST) – show both forms
     return render_template("bible_search_form.html", form=form, sermon_form=sermon_form)
+
+@app.route("/announcement_search", methods=["GET", "POST"])
+def announcement_search():
+    form = AnnouncementForm()
+
+    if form.validate_on_submit():
+        google_slide_url = form.google_slide_url.data
+        socketio.emit("google_slides_url_result", {"google_slides_url_result": google_slide_url})
+        return render_template("announcement_search_form.html", form=form)
+
+    return render_template("announcement_search_form.html", form=form)
+
 
 @app.route("/display")
 def display():
