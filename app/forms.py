@@ -78,23 +78,23 @@ def AtLeastOneSelected(form, field):
         raise ValidationError("You must select at least one option.")
 
 class BibleSearchForm(FlaskForm):
-    book_name = SelectField("Book Name", choices=bible_book_choices, validators=[DataRequired()])
+    book_name = SelectField("經卷", choices=bible_book_choices, validators=[DataRequired()])
     chapter = IntegerField(
-        "Chapter",
+        "章",
         validators=[
             DataRequired(),
             NumberRange(min=1, message="Chapter must be a positive number.")
         ]
     )
     start_verse = IntegerField(
-        "Start Verse",
+        "開始經節",
         validators=[
             DataRequired(),
             NumberRange(min=1, message="Verse number must be a positive number.")
         ]
     )
     end_verse = IntegerField(
-        "End Verse",
+        "結束經節",
         validators=[
             DataRequired(),
             NumberRange(min=1, message="Verse number must be a positive number.")
