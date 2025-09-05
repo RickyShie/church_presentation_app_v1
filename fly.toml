@@ -1,9 +1,9 @@
-# fly.toml app configuration file generated for church-presentation-v1 on 2025-09-05T22:56:29+09:00
+# fly.toml app configuration file generated for church-presentation-app-v1 on 2025-09-05T14:40:08Z
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = 'church-presentation-v1'
+app = 'church-presentation-app-v1'
 primary_region = 'nrt'
 
 [build]
@@ -20,3 +20,4 @@ primary_region = 'nrt'
   memory = '1gb'
   cpu_kind = 'shared'
   cpus = 1
+  memory_mb = 1024
